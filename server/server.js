@@ -15,15 +15,19 @@ io.on('connection', (socket) => {
      socket.on('disconnect', () => {
       console.log('User disconnected');
      });
-
-   socket.emit('newMessage', {
-       from: 'Jack',
-       text: 'yo ho ho',
-       createdAt: 123435
-     });
+   //
+   // socket.emit('newMessage', {
+   //     from: 'Jack',
+   //     text: 'yo ho ho',
+   //     createdAt: 123435
+   //   });
 
    socket.on('createMessage', (message) => {
-     console.log('Message created', message);
+      io.emit('newMessage', {
+          from: message.from,
+          text: message.text,
+          createdAt: new Date().getTime()
+      })
    });
 
    socket.on('disconnect', () => {
