@@ -15,10 +15,15 @@ io.on('connection', (socket) => {
      socket.on('disconnect', () => {
       console.log('User disconnected');
      });
-   
 
-   socket.on('createEmail', (newEmail) => {
-     console.log('Email created', newEmail);
+   socket.emit('newMessage', {
+       from: 'Jack',
+       text: 'yo ho ho',
+       createdAt: 123435
+     });
+
+   socket.on('createMessage', (message) => {
+     console.log('Message created', message);
    });
 
    socket.on('disconnect', () => {
