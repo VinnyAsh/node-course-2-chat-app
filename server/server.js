@@ -22,12 +22,29 @@ io.on('connection', (socket) => {
    //     createdAt: 123435
    //   });
 
+  socket.emit('newMessage', {
+      from: 'Admin',
+      text: 'Welcome to the chatroom',
+      createdAt: new Date().getTime()
+  });
+
+  socket.broadcast.emit('newMessage', {
+    from: 'Admin',
+    text: 'New user has joined',
+    createdAt: new Date().getTime()
+  });
+
    socket.on('createMessage', (message) => {
       io.emit('newMessage', {
-          from: message.from,
-          text: message.text,
+        from: message.from,
+        text: message.text,
           createdAt: new Date().getTime()
       })
+      // socket.broadcast.emit('newMessage', {
+      //   from: message.from,
+      //   text: message.text,
+      //   createAt: new Date().getTime()
+      // });
    });
 
    socket.on('disconnect', () => {
